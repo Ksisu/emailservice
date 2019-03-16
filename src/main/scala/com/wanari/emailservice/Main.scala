@@ -22,7 +22,7 @@ object Main extends App {
   val route = Api.createApi(services)
 
   Http().bindAndHandle(route, "0.0.0.0", 9000).onComplete {
-    case Success(_)  => logger.info("LoginService started")
-    case Failure(ex) => logger.error("LoginService starting failed", ex)
+    case Success(_)  => logger.info("EmailService started")
+    case Failure(ex) => logger.error("EmailService starting failed", ex)
   }
 }

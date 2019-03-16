@@ -3,6 +3,7 @@ package com.wanari.emailservice
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import com.wanari.emailservice.core.healthcheck.HealthCheckApi
+import com.wanari.emailservice.core.send.SendApi
 
 import scala.concurrent.Future
 
@@ -23,7 +24,8 @@ object Api {
     import services._
 
     val api = Seq(
-      new HealthCheckApi()
+      new HealthCheckApi(),
+      new SendApi()
     )
 
     createRoute(api)

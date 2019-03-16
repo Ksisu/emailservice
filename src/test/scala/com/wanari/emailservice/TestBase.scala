@@ -9,7 +9,7 @@ import scala.concurrent.{Await, Future}
 
 trait TestBase extends WordSpecLike with Matchers with MockitoSugar with BeforeAndAfterAll {
 
-  val timeout = 1.second
+  val timeout = 5.second
 
   def await[T](f: Future[T]): T = Await.result(f, timeout)
 

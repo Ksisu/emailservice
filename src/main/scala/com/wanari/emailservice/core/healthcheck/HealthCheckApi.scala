@@ -1,9 +1,9 @@
 package com.wanari.emailservice.core.healthcheck
 
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import com.wanari.emailservice.Api
-import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 
 import scala.concurrent.Future
 
