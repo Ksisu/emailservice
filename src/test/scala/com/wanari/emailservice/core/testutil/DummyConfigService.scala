@@ -7,4 +7,5 @@ class DummyConfigService extends ConfigService {
   override def getEmailFrom: String              = ???
   override def getSmtp: ConfigService.SmtpConfig = ???
   override def getTemplateDir: String            = ???
+  override def getApiSecret: String              = ???
 }

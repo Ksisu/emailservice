@@ -24,5 +24,8 @@ class ConfigServiceSpec extends TestBase {
     "#getTemplateDir" in {
       service.getTemplateDir shouldEqual "./templates"
     }
+    "#getApiSecret" in {
+      service.getApiSecret shouldEqual "supersecret"
+    }
   }
 }

@@ -21,11 +21,12 @@ object Api {
   }
 
   def createApi(services: Services[Future]): Route = {
+    import com.wanari.emailservice.core.auth.AuthDecorator._
     import services._
 
     val api = Seq(
       new HealthCheckApi(),
-      new SendApi()
+      new SendApi().withAuth
     )
 
     createRoute(api)

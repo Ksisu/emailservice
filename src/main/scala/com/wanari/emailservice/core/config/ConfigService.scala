@@ -8,6 +8,7 @@ trait ConfigService {
   def getEmailFrom: String
   def getSmtp: SmtpConfig
   def getTemplateDir: String
+  def getApiSecret: String
 }
 
 object ConfigService {
@@ -29,4 +30,5 @@ class ConfigServiceImpl() extends ConfigService {
     )
   }
   lazy val getTemplateDir: String = conf.getString("template.dir")
+  lazy val getApiSecret: String   = conf.getString("secret")
 }
