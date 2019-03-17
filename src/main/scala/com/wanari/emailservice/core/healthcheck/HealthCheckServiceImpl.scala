@@ -1,23 +1,21 @@
 package com.wanari.emailservice.core.healthcheck
 
-import cats.MonadError
-import com.wanari.emailservice.core.config.ServerConfig
+import cats.Applicative
+import com.wanari.emailservice.core.config.ConfigService
 import com.wanari.emailservice.core.healthcheck.HealthCheckService.HealthCheckResult
 
-class HealthCheckServiceImpl[F[_]](
-    implicit F: MonadError[F, Throwable],
-    config: ServerConfig[F]
+import scala.util.{Success, Try}
+
+class HealthCheckServiceImpl[F[_]: Applicative](
+    implicit config: ConfigService
 ) extends HealthCheckService[F] {
 
-  import cats.syntax.applicativeError._
-  import cats.syntax.functor._
+  import cats.syntax.applicative._
 
   def getStatus: F[HealthCheckResult] = {
-    for {
-      version <- config.getVersion.recover { case _ => "" }
-    } yield {
-      val success = !version.isEmpty
-      HealthCheckResult(success, version)
+    Try(config.getVersion) match {
+      case Success(version) if version.nonEmpty => HealthCheckResult(true, version).pure
+      case _                                    => HealthCheckResult(false, "").pure
     }
   }
 }

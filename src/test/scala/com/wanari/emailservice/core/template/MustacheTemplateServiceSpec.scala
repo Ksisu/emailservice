@@ -4,10 +4,9 @@ import java.io.{File, PrintWriter}
 import java.nio.file.Files
 
 import com.wanari.emailservice.TestBase
-import com.wanari.emailservice.core.testutil.DummyServerConfig
+import com.wanari.emailservice.core.testutil.DummyConfigService
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 class MustacheTemplateServiceSpec extends TestBase {
 
@@ -39,9 +38,8 @@ class MustacheTemplateServiceSpec extends TestBase {
     )
   )
 
-  import cats.instances.future._
-  implicit lazy val config = new DummyServerConfig[Future] {
-    override def getTemplateDir: Future[String] = Future.successful(templateDir)
+  implicit lazy val config = new DummyConfigService {
+    override def getTemplateDir: String = templateDir
   }
   lazy val service = new MustacheTemplateService()
 

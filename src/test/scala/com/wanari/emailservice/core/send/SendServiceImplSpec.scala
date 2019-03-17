@@ -2,15 +2,15 @@ package com.wanari.emailservice.core.send
 
 import cats.Id
 import com.wanari.emailservice.TestBase
-import com.wanari.emailservice.core.testutil.{DummyServerConfig, DummyTemplateService, SenderServiceMock}
+import com.wanari.emailservice.core.testutil.{DummyConfigService, DummyTemplateService, SenderServiceMock}
 
 class SendServiceImplSpec extends TestBase {
 
   trait TestScope {
     implicit val senderService   = new SenderServiceMock[Id]
     implicit val templateService = new DummyTemplateService[Id]
-    implicit val config = new DummyServerConfig[Id] {
-      override def getEmailFrom: Id[String] = "emailFrom@test"
+    implicit val config = new DummyConfigService {
+      override def getEmailFrom: String = "emailFrom@test"
     }
     val service = new SendServiceImpl[Id]()
   }

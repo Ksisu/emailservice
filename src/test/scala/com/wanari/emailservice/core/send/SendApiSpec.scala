@@ -5,7 +5,7 @@ import akka.http.scaladsl.model.{HttpRequest, MessageEntity, StatusCodes}
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import com.wanari.emailservice.TestBase
 import com.wanari.emailservice.core.send.SendApi.EmailRequest
-import com.wanari.emailservice.core.testutil.{DummyServerConfig, DummyTemplateService, SenderServiceMock}
+import com.wanari.emailservice.core.testutil.{DummyConfigService, DummyTemplateService, SenderServiceMock}
 import spray.json.{JsArray, JsFalse, JsNull, JsNumber, JsObject, JsString, JsTrue}
 
 import scala.concurrent.Future
@@ -52,8 +52,8 @@ class SendApiSpec extends TestBase with ScalatestRouteTest {
       import cats.instances.future._
       implicit val senderService   = new SenderServiceMock[Future]
       implicit val templateService = new DummyTemplateService[Future]
-      implicit val config = new DummyServerConfig[Future] {
-        override def getEmailFrom: Future[String] = Future.successful("emailFrom@test")
+      implicit val config = new DummyConfigService {
+        override def getEmailFrom: String = "emailFrom@test"
       }
       implicit val sendService = new SendServiceImpl[Future]()
       val routes               = new SendApi().route()

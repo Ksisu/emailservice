@@ -1,6 +1,6 @@
 package com.wanari.emailservice
 
-import com.wanari.emailservice.core.config.{ServerConfig, ServerConfigImpl}
+import com.wanari.emailservice.core.config.{ConfigService, ConfigServiceImpl}
 import com.wanari.emailservice.core.healthcheck.{HealthCheckService, HealthCheckServiceImpl}
 import com.wanari.emailservice.core.send.{SendService, SendServiceImpl}
 import com.wanari.emailservice.core.sender.{SenderService, SmtpService}
@@ -9,7 +9,7 @@ import com.wanari.emailservice.core.template.{MustacheTemplateService, TemplateS
 import scala.concurrent.{ExecutionContext, Future}
 
 trait Services[F[_]] {
-  implicit val configService: ServerConfig[F]
+  implicit val configService: ConfigService
   implicit val healthCheckService: HealthCheckService[F]
   implicit val senderService: SenderService[F]
   implicit val templateService: TemplateService[F]
@@ -19,9 +19,9 @@ trait Services[F[_]] {
 class RealServices(implicit ec: ExecutionContext) extends Services[Future] {
   import cats.instances.future._
 
-  implicit lazy val configService: ServerConfig[Future] = new ServerConfigImpl[Future]
+  implicit lazy val configService: ConfigService = new ConfigServiceImpl
 
-  implicit lazy val healthCheckService: HealthCheckService[Future] = new HealthCheckServiceImpl[Future]
+  implicit lazy val healthCheckService: HealthCheckService[Future] = new HealthCheckServiceImpl[Future]()
   implicit lazy val senderService: SenderService[Future]           = new SmtpService()
   implicit lazy val templateService: TemplateService[Future]       = new MustacheTemplateService()
   implicit lazy val sendService: SendService[Future]               = new SendServiceImpl[Future]()
