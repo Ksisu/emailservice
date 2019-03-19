@@ -2,7 +2,6 @@ FROM hseeberger/scala-sbt:8u181_2.12.8_1.2.8 as builder
 COPY build.sbt /app/build.sbt
 COPY project /app/project
 COPY .scalafmt.conf /app/.scalafmt.conf
-RUN awk 'BEGIN{for(v in ENVIRON) print v}'
 WORKDIR /app
 RUN sbt update test:update it:update
 COPY . .
