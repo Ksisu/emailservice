@@ -6,12 +6,14 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import com.wanari.emailservice.Api
 import com.wanari.emailservice.core.send.SendApi._
+import org.slf4j.LoggerFactory
 import spray.json.{JsArray, JsBoolean, JsNumber, JsObject, JsString, RootJsonFormat}
 
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
 class SendApi(implicit service: SendService[Future]) extends Api {
+  private val logger = LoggerFactory.getLogger(classOf[SendApi])
 
   def route(): Route = {
     path("send") {
@@ -26,7 +28,9 @@ class SendApi(implicit service: SendService[Future]) extends Api {
             )
           ) {
             case Success(_) => complete(StatusCodes.OK)
-            case Failure(_) => complete(StatusCodes.InternalServerError)
+            case Failure(e) =>
+              logger.error("Email send failed", e)
+              complete(StatusCodes.InternalServerError)
           }
         }
       }
