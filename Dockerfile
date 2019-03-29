@@ -19,5 +19,5 @@ USER 1001
 ARG BUILD_VERSION
 ENV VERSION=$BUILD_VERSION
 EXPOSE 9000
-ENTRYPOINT /app/bin/emailservice
+ENTRYPOINT ["/app/bin/emailservice"]
 CMD []
