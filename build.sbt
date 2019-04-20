@@ -44,6 +44,10 @@ lazy val core = (project in file("."))
         "org.codehaus.janino"  % "janino"                   % "3.0.12",
         "org.apache.commons"   % "commons-email"            % "1.5",
         "org.scalatra.scalate" % "scalate-core_2.12"        % "1.9.1",
+        "io.opentracing"       % "opentracing-api"          % "0.32.0",
+        "io.opentracing"       % "opentracing-util"         % "0.32.0",
+        "io.opentracing"       % "opentracing-noop"         % "0.32.0",
+        "io.jaegertracing"     % "jaeger-client"            % "0.32.0",
         "org.scalatest"        %% "scalatest"               % "3.0.5" % "test",
         "org.mockito"          % "mockito-core"             % "2.25.0" % "test",
         "org.mockito"          %% "mockito-scala"           % "1.2.0" % "test"

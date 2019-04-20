@@ -11,6 +11,7 @@ import spray.json.{JsArray, JsBoolean, JsNumber, JsObject, JsString, RootJsonFor
 
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
+import com.wanari.emailservice.util.TracingDirectives._
 
 class SendApi(implicit service: SendService[Future]) extends Api {
   private val logger = LoggerFactory.getLogger(classOf[SendApi])
@@ -19,18 +20,20 @@ class SendApi(implicit service: SendService[Future]) extends Api {
     path("send") {
       post {
         entity(as[EmailRequest]) { data =>
-          onComplete(
-            service.send(
-              data.email,
-              data.templateId,
-              convertToMap(data.titleArguments),
-              convertToMap(data.bodyArguments)
-            )
-          ) {
-            case Success(_) => complete(StatusCodes.OK)
-            case Failure(e) =>
-              logger.error("Email send failed", e)
-              complete(StatusCodes.InternalServerError)
+          trace("Send") { _ =>
+            onComplete(
+              service.send(
+                data.email,
+                data.templateId,
+                convertToMap(data.titleArguments),
+                convertToMap(data.bodyArguments)
+              )
+            ) {
+              case Success(_) => complete(StatusCodes.OK)
+              case Failure(e) =>
+                logger.error("Email send failed", e)
+                complete(StatusCodes.InternalServerError)
+            }
           }
         }
       }

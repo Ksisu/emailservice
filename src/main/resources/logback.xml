@@ -4,6 +4,8 @@
 
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
+    <logger name="io.jaegertracing.internal.reporters.LoggingReporter" level="WARN"/>
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
     </appender>
