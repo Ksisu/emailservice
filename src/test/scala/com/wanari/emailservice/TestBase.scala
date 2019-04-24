@@ -1,7 +1,7 @@
 package com.wanari.emailservice
 
 import akka.actor.ActorSystem
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 
 import scala.concurrent.duration._

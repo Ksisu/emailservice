@@ -27,8 +27,8 @@ lazy val core = (project in file("."))
       "-Xlint"
     ),
     libraryDependencies ++= {
-      val akkaHttpV = "10.1.7"
-      val akkaV     = "2.5.21"
+      val akkaHttpV = "10.1.8"
+      val akkaV     = "2.5.22"
       Seq(
         "org.typelevel"        %% "cats-core"               % "1.6.0",
         "com.typesafe.akka"    %% "akka-http"               % akkaHttpV,
@@ -43,14 +43,14 @@ lazy val core = (project in file("."))
         "org.slf4j"            % "jul-to-slf4j"             % "1.7.26",
         "org.codehaus.janino"  % "janino"                   % "3.0.12",
         "org.apache.commons"   % "commons-email"            % "1.5",
-        "org.scalatra.scalate" % "scalate-core_2.12"        % "1.9.1",
+        "org.scalatra.scalate" % "scalate-core_2.12"        % "1.9.3",
         "io.opentracing"       % "opentracing-api"          % "0.32.0",
         "io.opentracing"       % "opentracing-util"         % "0.32.0",
         "io.opentracing"       % "opentracing-noop"         % "0.32.0",
-        "io.jaegertracing"     % "jaeger-client"            % "0.32.0",
-        "org.scalatest"        %% "scalatest"               % "3.0.5" % "test",
-        "org.mockito"          % "mockito-core"             % "2.25.0" % "test",
-        "org.mockito"          %% "mockito-scala"           % "1.2.0" % "test"
+        "io.jaegertracing"     % "jaeger-client"            % "0.34.0",
+        "org.scalatest"        %% "scalatest"               % "3.0.7" % "test",
+        "org.mockito"          % "mockito-core"             % "2.27.0" % "test",
+        "org.mockito"          %% "mockito-scala"           % "1.3.1" % "test"
       )
     }
   )
@@ -59,7 +59,7 @@ addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 
 enablePlugins(JavaAppPackaging)
 
-addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.9")
+addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.10")
 addCompilerPlugin("io.tryp"        % "splain"          % "0.4.0" cross CrossVersion.patch)
 
 cancelable in Global := true
